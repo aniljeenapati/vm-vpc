@@ -51,6 +51,9 @@ resource "google_compute_instance" "centos_instance" {
     access_config {}  # Allocate a public IP address
   }
 
+  tags = ["http-server"]
+}
+
   metadata = {
     startup-script = <<-EOT
       #!/bin/bash
