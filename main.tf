@@ -52,7 +52,6 @@ resource "google_compute_instance" "centos_instance" {
   }
 
   tags = ["http-server"]
-}
 
   metadata = {
     startup-script = <<-EOT
