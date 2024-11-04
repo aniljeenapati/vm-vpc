@@ -37,7 +37,7 @@ resource "google_compute_firewall" "allow_ssh" {
 resource "google_compute_instance" "centos_instance" {
   name         = "centos-instance"
   machine_type = "e2-micro"  # Change as needed
-  zone         = "us-east1-a"  # Change to your desired zone
+  zone         = "us-east1-b"  # Change to your desired zone
 
   boot_disk {
     initialize_params {
