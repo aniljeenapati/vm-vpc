@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+        environment {
+                GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-sa')
+        }
+
+    stages {
+        stage('checkout code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/aniljeenapati/vm-vpc.git'
+            }
+        }
+        stage('terraform init') {
+            steps {
+                sh 'terraform init'
+            }
+        }
+        stage('terraform plan') {
+            steps {
+                sh 'terraform plan'  
+            }
+        }
+        stage('terraform apply') {
+            steps {
+                sh 'terraform apply  --auto-approve'
+            }
+        }
+    }
+}
