@@ -41,7 +41,7 @@ resource "google_compute_instance" "centos_instance" {
 
   boot_disk {
     initialize_params {
-      image = "centos-cloud/centos-7"  # Use CentOS 7 image
+      image = "centos-stream/centos-stream-9"  # Use CentOS 7 image
     }
   }
 
