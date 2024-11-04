@@ -53,13 +53,20 @@ resource "google_compute_instance" "centos_instance" {
 
   tags = ["http-server"]
 
-  metadata = {
-    startup-script = <<-EOT
-      #!/bin/bash
-      yum update -y
-      yum install -y httpd
-      systemctl enable httpd
-      systemctl start httpd
-    EOT
+ provisioner "remote-exec" {
+    inline = [
+      "sudo yum update -y",              # Update the package manager
+      "sudo yum install -y httpd",      # Install Apache
+      "sudo systemctl enable httpd",     # Enable Apache to start on boot
+      "sudo systemctl start httpd"       # Start Apache service
+    ]
+
+    # Connection block to connect to the VM via SSH
+    connection {
+      type     = "ssh"
+      user     = "centos"               # Default user for CentOS instances
+      private_key = file("var/lib/jenkins/.ssh/id_rsa") # Path to your private SSH key
+      host     = self.network_interface[0].access_config[0].nat_ip
+    }
   }
 }
